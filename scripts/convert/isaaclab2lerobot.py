@@ -212,8 +212,11 @@ def process_single_arm_data(dataset: LeRobotDataset, task: str, demo_group: h5py
             "observation.state": joint_pos[frame_index],
             "observation.images.front": front_images[frame_index],
             "observation.images.wrist": wrist_images[frame_index],
+            "task": task,
         }
-        dataset.add_frame(frame=frame, task=task)
+        # TODO: cyl
+        # dataset.add_frame(frame=frame, task=task)
+        dataset.add_frame(frame=frame)
 
     return True
 
@@ -257,11 +260,14 @@ def process_bi_arm_data(dataset: LeRobotDataset, task: str, demo_group: h5py.Gro
 
 def convert_isaaclab_to_lerobot():
     """NOTE: Modify the following parameters to fit your own dataset"""
-    repo_id = 'EverNorif/so101_test_orange_pick'
+    # TODO: CYL
+    # repo_id = 'EverNorif/so101_test_orange_pick'
+    repo_id = 'yangsheng/so101_test_orange_pick_ys_0'
     robot_type = 'so101_follower'  # so101_follower, bi_so101_follower
     fps = 30
     hdf5_root = './datasets'
-    hdf5_files = [os.path.join(hdf5_root, 'dataset.hdf5')]
+    # hdf5_files = [os.path.join(hdf5_root, 'dataset.hdf5')]
+    hdf5_files = [os.path.join(hdf5_root, 'dataset_ys.hdf5')]
     task = 'Grab orange and place into plate'
     push_to_hub = False
 
