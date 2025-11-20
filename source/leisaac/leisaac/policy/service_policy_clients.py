@@ -72,10 +72,21 @@ class Gr00tServicePolicyClient(ZMQServicePolicy):
                 "action.gripper": np.zeros((1, 1)),
             }
         """
+        
+        # TODO: CYL，打印当前维度进行调试
+        print(f"single_arm shape: {action_chunk['action.single_arm'].shape}")
+        print(f"gripper shape: {action_chunk['action.gripper'].shape}")
+        print(f"gripper shape: {action_chunk['action.gripper'][:, None].shape}")
+
+        # concat_action = np.concatenate(
+        #     [action_chunk["action.single_arm"], action_chunk["action.gripper"][:, None]],
+        #     axis=1,
+        # )
         concat_action = np.concatenate(
-            [action_chunk["action.single_arm"], action_chunk["action.gripper"][:, None]],
+            [action_chunk["action.single_arm"], action_chunk["action.gripper"]],
             axis=1,
         )
+
         concat_action = convert_lerobot_action_to_leisaac(concat_action)
 
         return torch.from_numpy(concat_action[:, None, :])

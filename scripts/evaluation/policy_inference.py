@@ -207,8 +207,11 @@ def main():
                 actions = policy.get_action(obs_dict).to(env.device)
                 for i in range(min(args_cli.policy_action_horizon, actions.shape[0])):
                     action = actions[i, :, :]
-                    if env.cfg.dynamic_reset_gripper_effort_limit:
-                        dynamic_reset_gripper_effort_limit_sim(env, task_type)
+
+                    # TODO: CYL
+                    # if env.cfg.dynamic_reset_gripper_effort_limit:
+                    dynamic_reset_gripper_effort_limit_sim(env, task_type)
+
                     obs_dict, _, reset_terminated, reset_time_outs, _ = env.step(action)
                     if reset_terminated[0]:
                         success = True
